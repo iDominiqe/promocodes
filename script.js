@@ -128,39 +128,5 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Добавляем анимацию для уведомления
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    
-    .status-badge {
-        background: #10b981;
-        color: white;
-        padding: 0.25rem 0.5rem;
-        border-radius: 15px;
-        font-size: 0.8em;
-    }
-    
-    .promo-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
-    
-    .promo-code {
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-    
-    .promo-code:hover {
-        background-color: #374151 !important;
-    }
-`;
-document.head.appendChild(style);
-
 // Загружаем промокоды при загрузке страницы
 document.addEventListener('DOMContentLoaded', loadPromocodes);
