@@ -2,6 +2,13 @@
   "last_updated": "2024-01-15",
   "active": [
     {
+      "code": "PRIDE2025",
+      "reward": "Pride Oro Decoration",
+      "expires": "2026-07-31",
+      "image": "images/pride25.png",
+      "description": "Pride Oro Decoration + Pride Qorvex Fusion Display + Pride Glyph IV"
+    },
+    {
       "code": "FREESWORD",
       "reward": "Vectis и скин",
       "expires": "2024-12-31",
