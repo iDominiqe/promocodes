@@ -27,38 +27,58 @@ function displayPromocodes(data) {
     if (data.active && data.active.length > 0) {
         activeList.innerHTML = data.active.map(promo => `
             <div class="promo-card active">
+                ${getPromoImage(promo.image, promo.reward)}
                 <div class="promo-header">
                     <h3>${promo.code}</h3>
-                    <span class="status-badge">🔥 Активен</span>
-                </div>
-                <div class="promo-code" onclick="copyCode('${promo.code}')">
-                    ${promo.code}
-                    <small>кликните чтобы скопировать</small>
+                    <span class="status-badge active">Активен</span>
                 </div>
                 <p class="reward">${promo.reward}</p>
                 <p class="description">${promo.description || ''}</p>
-                <p class="expires">⏰ Действует до: ${promo.expires}</p>
+                <p class="expires">Действует до: ${promo.expires}</p>
+                <div class="promo-actions">
+                    <button class="action-btn copy-btn" onclick="copyCode('${promo.code}')">
+                        📋 Скопировать код
+                    </button>
+                    <a href="https://www.warframe.com/promocode?code=${promo.code}" 
+                       target="_blank" 
+                       class="action-btn redeem-btn">
+                        🎮 Активировать
+                    </a>
+                </div>
             </div>
         `).join('');
     } else {
-        activeList.innerHTML = '<p>Нет активных промокодов</p>';
+        activeList.innerHTML = '<p>😔 Нет активных промокодов</p>';
     }
     
     // Показываем истекшие промокоды
     if (data.expired && data.expired.length > 0) {
         expiredList.innerHTML = data.expired.map(promo => `
             <div class="promo-card expired">
+                ${getPromoImage(promo.image, promo.reward)}
                 <div class="promo-header">
                     <h3>${promo.code}</h3>
-                    <span class="status-badge">⏰ Истек</span>
+                    <span class="status-badge expired">Истек</span>
                 </div>
                 <p class="reward">${promo.reward}</p>
                 <p class="description">${promo.description || ''}</p>
             </div>
         `).join('');
     } else {
-        expiredList.innerHTML = '<p>Нет истекших промокодов</p>';
+        expiredList.innerHTML = '<p>📭 Нет истекших промокодов</p>';
     }
+}
+
+// Генерация изображения промокода
+function getPromoImage(imagePath, reward) {
+    if (imagePath && imagePath !== 'images/') {
+        return `<img src="${imagePath}" alt="${reward}" class="promo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">`;
+    }
+    return `
+        <div class="promo-image image-placeholder">
+            🎁
+        </div>
+    `;
 }
 
 // Обновление даты последнего обновления
@@ -70,10 +90,16 @@ function updateLastUpdated(date) {
 // Копирование кода в буфер обмена
 function copyCode(code) {
     navigator.clipboard.writeText(code).then(() => {
-        // Показываем уведомление
-        showNotification(`Код "${code}" скопирован!`);
+        showNotification(`✅ Код "${code}" скопирован в буфер обмена!`);
     }).catch(err => {
-        console.error('Ошибка копирования:', err);
+        // Fallback для старых браузеров
+        const textArea = document.createElement('textarea');
+        textArea.value = code;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showNotification(`✅ Код "${code}" скопирован!`);
     });
 }
 
