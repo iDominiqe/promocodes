@@ -2,31 +2,24 @@
   "last_updated": "2024-01-15",
   "active": [
     {
-      "code": "PRIDE2025",
-      "reward": "Pride Oro Decoration",
-      "expires": "2026-07-31",
-      "image": "images/pride25.png",
-      "description": "Pride Oro Decoration + Pride Qorvex Fusion Display + Pride Glyph IV"
-    },
-    {
       "code": "FREESWORD",
       "reward": "Vectis и скин",
       "expires": "2024-12-31",
-      "image": "images/vectis.jpg",
+      "image": "",
       "description": "Мотивная снайперская винтовка Vectis и эксклюзивный скин"
     },
     {
       "code": "GLYPHPRIME",
       "reward": "Глиф Prime",
       "expires": "2024-06-30",
-      "image": "images/glyph.jpg",
+      "image": "",
       "description": "Эксклюзивный глиф Prime для профиля"
     },
     {
       "code": "WARFRAME2024",
       "reward": "7-дневный бустер",
       "expires": "2024-03-31",
-      "image": "images/booster.jpg",
+      "image": "",
       "description": "Бустер опыта и ресурсов на 7 дней"
     }
   ],
@@ -35,13 +28,8 @@
       "code": "OLDPROMO2023",
       "reward": "Старый предмет",
       "expired": true,
+      "image": "",
       "description": "Этот промокод уже истек"
-    },
-    {
-      "code": "NEWYEAR2023",
-      "reward": "Новогодний скин",
-      "expired": true,
-      "description": "Новогодний скин для оружия"
     }
   ]
 }
