@@ -3,17 +3,24 @@
   "active": [
     {
       "code": "FREESWORD",
-      "reward": "Оружие Vectis и скин",
+      "reward": "Vectis и скин",
       "expires": "2024-12-31",
       "image": "images/vectis.jpg",
-      "description": "Мотивная снайперская винтовка и эксклюзивный скин"
+      "description": "Мотивная снайперская винтовка Vectis и эксклюзивный скин"
     },
     {
       "code": "GLYPHPRIME",
       "reward": "Глиф Prime",
       "expires": "2024-06-30",
       "image": "images/glyph.jpg",
-      "description": "Эксклюзивный глиф для профиля"
+      "description": "Эксклюзивный глиф Prime для профиля"
+    },
+    {
+      "code": "WARFRAME2024",
+      "reward": "7-дневный бустер",
+      "expires": "2024-03-31",
+      "image": "images/booster.jpg",
+      "description": "Бустер опыта и ресурсов на 7 дней"
     }
   ],
   "expired": [
@@ -22,6 +29,12 @@
       "reward": "Старый предмет",
       "expired": true,
       "description": "Этот промокод уже истек"
+    },
+    {
+      "code": "NEWYEAR2023",
+      "reward": "Новогодний скин",
+      "expired": true,
+      "description": "Новогодний скин для оружия"
     }
   ]
 }
