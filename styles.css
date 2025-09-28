@@ -365,14 +365,16 @@ footer {
     color: var(--dark);
 }
 
-.section-header::before {
-    font-size: 1.5em;
+.section-header h2 {
+    margin: 0; /* Убираем отступы у заголовка */
 }
 
 #active-promocodes .section-header::before {
     content: '🔥';
+    font-size: 1.5em;
 }
 
 #expired-promocodes .section-header::before {
     content: '⏰';
+    font-size: 1.5em;
 }
