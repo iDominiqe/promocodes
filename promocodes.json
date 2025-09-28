@@ -1,6 +1,13 @@
 {
   "last_updated": "2024-01-15",
   "active": [
+     {
+      "code": "Pride2025",
+      "reward": "Pride Glyph IV",
+      "expires": "2026-07-31",
+      "image": "images/pride25.png",
+      "description": "Pride Promocode 2025"
+    },
     {
       "code": "FREESWORD",
       "reward": "Vectis и скин",
