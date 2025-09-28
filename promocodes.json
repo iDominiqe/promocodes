@@ -1,0 +1,27 @@
+{
+  "last_updated": "2024-01-15",
+  "active": [
+    {
+      "code": "FREESWORD",
+      "reward": "Оружие Vectis и скин",
+      "expires": "2024-12-31",
+      "image": "images/vectis.jpg",
+      "description": "Мотивная снайперская винтовка и эксклюзивный скин"
+    },
+    {
+      "code": "GLYPHPRIME",
+      "reward": "Глиф Prime",
+      "expires": "2024-06-30",
+      "image": "images/glyph.jpg",
+      "description": "Эксклюзивный глиф для профиля"
+    }
+  ],
+  "expired": [
+    {
+      "code": "OLDPROMO2023",
+      "reward": "Старый предмет",
+      "expired": true,
+      "description": "Этот промокод уже истек"
+    }
+  ]
+}
