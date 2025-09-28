@@ -1,0 +1,80 @@
+name: Update Promocodes from Issues
+
+on:
+  issues:
+    types: [opened, labeled]
+  workflow_dispatch:  # Позволяет запускать вручную
+
+jobs:
+  update-promocodes:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'promocode')
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Update promocodes from issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const issueBody = issue.body;
+            
+            // Парсим данные из issue
+            const codeMatch = issueBody.match(/Код:\s*([A-Z0-9]+)/i);
+            const rewardMatch = issueBody.match(/Награда:\s*(.+)/i);
+            const expiresMatch = issueBody.match(/Действует до:\s*(\d{4}-\d{2}-\d{2})/i);
+            const descMatch = issueBody.match(/Описание:\s*(.+)/i);
+            
+            if (codeMatch) {
+              const fs = require('fs');
+              
+              // Читаем текущий JSON
+              const currentData = JSON.parse(fs.readFileSync('promocodes.json', 'utf8'));
+              
+              // Создаем новый промокод
+              const newPromo = {
+                code: codeMatch[1],
+                reward: rewardMatch ? rewardMatch[1].trim() : 'Награда',
+                expires: expiresMatch ? expiresMatch[1] : '2024-12-31',
+                description: descMatch ? descMatch[1].trim() : '',
+                image: ""
+              };
+              
+              // Добавляем в активные
+              currentData.active.push(newPromo);
+              currentData.last_updated = new Date().toISOString().split('T')[0];
+              
+              // Сохраняем обратно
+              fs.writeFileSync('promocodes.json', JSON.stringify(currentData, null, 2));
+              
+              // Коммитим изменения
+              await github.rest.issues.createComment({
+                issue_number: issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '✅ Промокод автоматически добавлен на сайт!'
+              });
+              
+              // Закрываем issue
+              await github.rest.issues.update({
+                issue_number: issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'closed'
+              });
+            }
+            
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add promocodes.json
+          git commit -m "Auto-update promocodes from issue" || exit 0
+          git push
