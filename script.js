@@ -105,24 +105,12 @@ function copyCode(code) {
 
 // Показ уведомления
 function showNotification(message) {
-    // Создаем элемент уведомления
     const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #10b981;
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 5px;
-        z-index: 1000;
-        animation: slideIn 0.3s ease;
-    `;
+    notification.className = 'notification';
     notification.textContent = message;
     
     document.body.appendChild(notification);
     
-    // Удаляем через 3 секунды
     setTimeout(() => {
         notification.remove();
     }, 3000);
