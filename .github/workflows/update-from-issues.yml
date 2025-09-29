@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0  # Важно: получаем всю историю
+          fetch-depth: 0
           
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -83,9 +83,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
-          # Обновляемся до актуальной версии и применяем изменения
-          git pull --rebase origin main
           git add promocodes.json
-          git commit -m "Auto-update: добавлен промокод из issue #${{ github.event.issue.number }}"
+          git commit -m "Auto-update: добавлен промокод из issue #${{ github.event.issue.number }}" || exit 0
+          git pull --rebase origin main
           git push
