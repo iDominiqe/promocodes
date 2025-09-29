@@ -7,6 +7,13 @@
       "expires": "2027-12-31",
       "description": "BLACKNATO974 Glyph Warframe",
       "image": "https://i.imgur.com/YnyuViu.png"
+    },
+    {
+      "code": "CRUSADER",
+      "reward": "Глиф",
+      "expires": "2029-12-31",
+      "description": "Промокод на глиф",
+      "image": "https://i.imgur.com/YzFgRcz.png"
     }
   ],
   "expired": []
