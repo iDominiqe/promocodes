@@ -1,7 +1,9 @@
 // Загрузка промокодов
 async function loadPromocodes() {
     try {
-        const response = await fetch('promocodes.json');
+        // Добавляем timestamp для избежания кэша
+        const timestamp = new Date().getTime();
+        const response = await fetch(`promocodes.json?v=${timestamp}`);
         const data = await response.json();
         
         displayPromocodes(data);
@@ -83,8 +85,10 @@ function getPromoImage(imagePath, reward) {
 
 // Обновление даты последнего обновления
 function updateLastUpdated(date) {
-    const footer = document.querySelector('footer');
-    footer.innerHTML += `<br><small>Последнее обновление: ${date}</small>`;
+    const lastUpdatedElement = document.getElementById('last-updated');
+    if (lastUpdatedElement) {
+        lastUpdatedElement.textContent = `Последнее обновление: ${date}`;
+    }
 }
 
 // Копирование кода в буфер обмена
@@ -116,9 +120,6 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Загружаем промокоды при загрузке страницы
-document.addEventListener('DOMContentLoaded', loadPromocodes);
-
 // Автоматическое обновление каждые 5 минут
 function startAutoRefresh() {
     setInterval(() => {
@@ -127,7 +128,7 @@ function startAutoRefresh() {
     }, 5 * 60 * 1000); // 5 минут
 }
 
-// Запускаем при загрузке страницы
+// Загружаем промокоды при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     loadPromocodes();
     startAutoRefresh();
