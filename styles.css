@@ -205,6 +205,30 @@ nav {
 
 nav ul li strong {
     color: var(--primary);
+    font-size: 1.2em;
+}
+
+nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    transform: translateY(-2px);
+}
+
+/* Адаптивность навигации */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    nav ul li {
+        text-align: center;
+    }
 }
 
 /* Футер */
