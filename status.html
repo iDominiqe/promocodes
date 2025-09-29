@@ -1,161 +1,393 @@
-<script>
-// Весь код из status.js вставь сюда
-const SERVERS = [
-    { name: 'Логин сервер', url: 'https://warframe.com', region: 'Глобальный' },
-    { name: 'Игровой сервер EU', url: 'https://content.warframe.com', region: 'Европа' },
-    { name: 'Игровой сервер NA', url: 'https://content.origin.warframe.com', region: 'Северная Америка' },
-    { name: 'Торговая площадка', url: 'https://warframe.market', region: 'Маркет' },
-    { name: 'Форум', url: 'https://forums.warframe.com', region: 'Форум' },
-    { name: 'Wiki', url: 'https://warframe.fandom.com', region: 'База знаний' }
-];
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статус серверов Warframe 🔧</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.1">
+    <style>
+        /* Дополнительные стили для статуса */
+        .status-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
 
-const PLAYER_STATS = {
-    online: '45,000+',
-    peak: '67,892',
-    update: '5 минут назад'
-};
+        .status-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-left: 5px solid #10b981;
+        }
 
-async function initStatusPage() {
-    updateLastChecked();
-    await checkAllServers();
-    updatePlayerStats();
-    startAutoRefresh();
-}
+        .status-card.response-time {
+            border-left-color: #f59e0b;
+        }
 
-function updateLastChecked() {
-    const now = new Date();
-    const lastCheckElement = document.getElementById('last-check');
-    const lastUpdatedElement = document.getElementById('status-last-updated');
-    
-    if (lastCheckElement) lastCheckElement.textContent = now.toLocaleString('ru-RU');
-    if (lastUpdatedElement) lastUpdatedElement.textContent = `Последнее обновление: ${now.toLocaleString('ru-RU')}`;
-}
+        .status-card.players {
+            border-left-color: #667eea;
+        }
 
-async function checkAllServers() {
-    const serverList = document.getElementById('server-status');
-    if (!serverList) return;
-    
-    serverList.innerHTML = '<div class="loading">Проверка серверов...</div>';
+        .status-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2em;
+        }
 
-    const results = [];
-    
-    for (const server of SERVERS) {
-        const status = await checkServerStatus(server);
-        results.push({ ...server, status });
-    }
+        .status-card p {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: #1f2937;
+        }
 
-    displayServerStatus(results);
-}
+        .server-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #10b981;
+            transition: all 0.3s ease;
+        }
 
-async function checkServerStatus(server) {
-    try {
-        const startTime = Date.now();
-        const response = await fetch(server.url, { 
-            method: 'HEAD',
-            mode: 'no-cors',
-            cache: 'no-cache'
-        });
-        const responseTime = Date.now() - startTime;
+        .server-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
 
-        return {
-            online: true,
-            responseTime: responseTime,
-            lastChecked: new Date()
-        };
-    } catch (error) {
-        return {
-            online: false,
-            responseTime: null,
-            lastChecked: new Date(),
-            error: error.message
-        };
-    }
-}
+        .server-card.offline {
+            border-left-color: #ef4444;
+            opacity: 0.8;
+        }
 
-function displayServerStatus(servers) {
-    const serverList = document.getElementById('server-status');
-    const overallStatus = document.querySelector('.status-card.online h3');
-    
-    if (!serverList || !overallStatus) return;
-    
-    let onlineCount = 0;
-    let totalResponseTime = 0;
-    let responseCount = 0;
+        .server-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
 
-    serverList.innerHTML = servers.map(server => {
-        const isOnline = server.status.online;
-        const responseTime = server.status.responseTime;
-        
-        if (isOnline) {
-            onlineCount++;
-            if (responseTime) {
-                totalResponseTime += responseTime;
-                responseCount++;
+        .server-header h3 {
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .status-indicator {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .status-indicator.online {
+            background: #10b981;
+            color: white;
+        }
+
+        .status-indicator.offline {
+            background: #ef4444;
+            color: white;
+        }
+
+        .server-region {
+            color: #6b7280;
+            margin: 0.3rem 0;
+            font-size: 0.9em;
+        }
+
+        .response-time {
+            color: #f59e0b;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+
+        .incident-history {
+            margin-top: 3rem;
+        }
+
+        .incident-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #6b7280;
+        }
+
+        .incident-item.resolved {
+            border-left-color: #10b981;
+        }
+
+        .incident-item.monitoring {
+            border-left-color: #f59e0b;
+        }
+
+        .incident-status {
+            background: #6b7280;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .incident-item.resolved .incident-status {
+            background: #10b981;
+        }
+
+        .incident-item.monitoring .incident-status {
+            background: #f59e0b;
+        }
+
+        .incident-date {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .incident-item p {
+            margin: 0.5rem 0 0 0;
+            color: #374151;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+            grid-column: 1 / -1;
+        }
+
+        nav ul li a.active {
+            background: #667eea;
+            color: white;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .status-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .server-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Warframe Tools</strong></li>
+        </ul>
+        <ul>
+            <li><a href="index.html">🎁 Промокоды</a></li>
+            <li><a href="status.html" class="active">🔧 Статус серверов</a></li>
+            <li><a href="https://wtc.idominiqe.com" target="_blank">⏰ Таймеры</a></li>
+            <li><a href="https://github.com/iDominiqe/wtc" target="_blank">⭐ GitHub</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>🔧 Статус серверов Warframe</h1>
+            <p>Мониторинг состояния серверов и онлайн-статистика</p>
+        </section>
+
+        <div class="status-overview">
+            <div class="status-card online">
+                <h3>🟢 Онлайн</h3>
+                <p>Серверы работают стабильно</p>
+                <small>Последняя проверка: <span id="last-check">загрузка...</span></small>
+            </div>
+            
+            <div class="status-card response-time">
+                <h3>⚡ Время отклика</h3>
+                <p id="response-time">-- мс</p>
+                <small>Среднее время ответа</small>
+            </div>
+            
+            <div class="status-card players">
+                <h3>👥 Игроки онлайн</h3>
+                <p id="players-online">--</p>
+                <small>Активные игроки</small>
+            </div>
+        </div>
+
+        <section class="server-list">
+            <h2>📊 Статус серверов</h2>
+            <div id="server-status" class="grid">
+                <div class="loading">Проверка серверов...</div>
+            </div>
+        </section>
+
+        <section class="incident-history">
+            <h2>📈 История инцидентов</h2>
+            <div id="incident-list">
+                <div class="incident-item resolved">
+                    <span class="incident-status">✅ Решено</span>
+                    <span class="incident-date">28.09.2024 14:30</span>
+                    <p>Плановое техническое обслуживание - завершено</p>
+                </div>
+                <div class="incident-item monitoring">
+                    <span class="incident-status">🔍 Мониторинг</span>
+                    <span class="incident-date">25.09.2024 09:15</span>
+                    <p>Повышенная нагрузка на сервера аутентификации</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <small>Данные обновляются каждые 5 минут • Неофициальный мониторинг</small>
+        <br>
+        <small id="status-last-updated">Последнее обновление: загрузка...</small>
+    </footer>
+
+    <script>
+        // Конфигурация серверов для мониторинга
+        const SERVERS = [
+            { name: 'Логин сервер', url: 'https://warframe.com', region: 'Глобальный' },
+            { name: 'Игровой сервер EU', url: 'https://content.warframe.com', region: 'Европа' },
+            { name: 'Игровой сервер NA', url: 'https://content.origin.warframe.com', region: 'Северная Америка' },
+            { name: 'Торговая площадка', url: 'https://warframe.market', region: 'Маркет' },
+            { name: 'Форум', url: 'https://forums.warframe.com', region: 'Форум' },
+            { name: 'Wiki', url: 'https://warframe.fandom.com', region: 'База знаний' }
+        ];
+
+        async function initStatusPage() {
+            console.log('Инициализация страницы статуса...');
+            updateLastChecked();
+            await checkAllServers();
+            updatePlayerStats();
+            startAutoRefresh();
+        }
+
+        function updateLastChecked() {
+            const now = new Date();
+            const lastCheckElement = document.getElementById('last-check');
+            const lastUpdatedElement = document.getElementById('status-last-updated');
+            
+            if (lastCheckElement) lastCheckElement.textContent = now.toLocaleString('ru-RU');
+            if (lastUpdatedElement) lastUpdatedElement.textContent = `Последнее обновление: ${now.toLocaleString('ru-RU')}`;
+        }
+
+        async function checkAllServers() {
+            const serverList = document.getElementById('server-status');
+            if (!serverList) return;
+            
+            serverList.innerHTML = '<div class="loading">Проверка серверов...</div>';
+
+            const results = [];
+            
+            for (const server of SERVERS) {
+                const status = await checkServerStatus(server);
+                results.push({ ...server, status });
+            }
+
+            displayServerStatus(results);
+        }
+
+        async function checkServerStatus(server) {
+            try {
+                const startTime = Date.now();
+                // Используем простой fetch для проверки доступности
+                const response = await fetch(server.url, { 
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+                const responseTime = Date.now() - startTime;
+
+                return {
+                    online: true,
+                    responseTime: responseTime,
+                    lastChecked: new Date()
+                };
+            } catch (error) {
+                console.log(`Ошибка проверки ${server.name}:`, error);
+                return {
+                    online: false,
+                    responseTime: null,
+                    lastChecked: new Date(),
+                    error: error.message
+                };
             }
         }
 
-        return `
-            <div class="server-card ${isOnline ? 'online' : 'offline'}">
-                <div class="server-header">
-                    <h3>${server.name}</h3>
-                    <span class="status-indicator ${isOnline ? 'online' : 'offline'}">
-                        ${isOnline ? '🟢 Онлайн' : '🔴 Офлайн'}
-                    </span>
-                </div>
-                <p class="server-region">${server.region}</p>
-                ${isOnline && responseTime ? 
-                    `<p class="response-time">⏱ ${responseTime} мс</p>` : 
-                    '<p class="response-time">⏱ -- мс</p>'
+        function displayServerStatus(servers) {
+            const serverList = document.getElementById('server-status');
+            const overallStatus = document.querySelector('.status-card.online h3');
+            
+            if (!serverList || !overallStatus) return;
+            
+            let onlineCount = 0;
+            let totalResponseTime = 0;
+            let responseCount = 0;
+
+            serverList.innerHTML = servers.map(server => {
+                const isOnline = server.status.online;
+                const responseTime = server.status.responseTime;
+                
+                if (isOnline) {
+                    onlineCount++;
+                    if (responseTime) {
+                        totalResponseTime += responseTime;
+                        responseCount++;
+                    }
                 }
-                <small>Проверено: ${server.status.lastChecked.toLocaleTimeString('ru-RU')}</small>
-            </div>
-        `;
-    }).join('');
 
-    // Обновляем общий статус
-    const overallOnline = onlineCount === SERVERS.length;
-    overallStatus.textContent = overallOnline ? '🟢 Все системы в норме' : '🟡 Частичные перебои';
-    
-    // Обновляем среднее время ответа
-    if (responseCount > 0) {
-        const avgResponseTime = Math.round(totalResponseTime / responseCount);
-        const responseTimeElement = document.getElementById('response-time');
-        if (responseTimeElement) responseTimeElement.textContent = `${avgResponseTime} мс`;
-    }
-}
+                return `
+                    <div class="server-card ${isOnline ? 'online' : 'offline'}">
+                        <div class="server-header">
+                            <h3>${server.name}</h3>
+                            <span class="status-indicator ${isOnline ? 'online' : 'offline'}">
+                                ${isOnline ? '🟢 Онлайн' : '🔴 Офлайн'}
+                            </span>
+                        </div>
+                        <p class="server-region">${server.region}</p>
+                        ${isOnline && responseTime ? 
+                            `<p class="response-time">⏱ ${responseTime} мс</p>` : 
+                            '<p class="response-time">⏱ -- мс</p>'
+                        }
+                        <small>Проверено: ${server.status.lastChecked.toLocaleTimeString('ru-RU')}</small>
+                    </div>
+                `;
+            }).join('');
 
-function updatePlayerStats() {
-    const playersOnlineElement = document.getElementById('players-online');
-    if (playersOnlineElement) playersOnlineElement.textContent = PLAYER_STATS.online;
-    
-    const incidentList = document.getElementById('incident-list');
-    if (incidentList) {
-        incidentList.innerHTML = `
-            <div class="incident-item resolved">
-                <span class="incident-status">✅ Решено</span>
-                <span class="incident-date">28.09.2024 14:30</span>
-                <p>Плановое техническое обслуживание - завершено</p>
-            </div>
-            <div class="incident-item monitoring">
-                <span class="incident-status">🔍 Мониторинг</span>
-                <span class="incident-date">25.09.2024 09:15</span>
-                <p>Повышенная нагрузка на сервера аутентификации</p>
-            </div>
-            <div class="incident-item resolved">
-                <span class="incident-status">✅ Решено</span>
-                <span class="incident-date">20.09.2024 18:45</span>
-                <p>Обновление безопасности - завершено</p>
-            </div>
-        `;
-    }
-}
+            // Обновляем общий статус
+            const overallOnline = onlineCount === SERVERS.length;
+            overallStatus.textContent = overallOnline ? '🟢 Все системы в норме' : '🟡 Частичные перебои';
+            
+            // Обновляем среднее время ответа
+            if (responseCount > 0) {
+                const avgResponseTime = Math.round(totalResponseTime / responseCount);
+                const responseTimeElement = document.getElementById('response-time');
+                if (responseTimeElement) responseTimeElement.textContent = `${avgResponseTime} мс`;
+            }
+        }
 
-function startAutoRefresh() {
-    setInterval(() => {
-        console.log('Авто-обновление статуса серверов...');
-        initStatusPage();
-    }, 5 * 60 * 1000);
-}
+        function updatePlayerStats() {
+            const playersOnlineElement = document.getElementById('players-online');
+            if (playersOnlineElement) playersOnlineElement.textContent = '45,000+';
+        }
 
-document.addEventListener('DOMContentLoaded', initStatusPage);
-</script>
+        function startAutoRefresh() {
+            // Обновляем каждые 2 минуты для теста
+            setInterval(() => {
+                console.log('Авто-обновление статуса серверов...');
+                initStatusPage();
+            }, 2 * 60 * 1000);
+        }
+
+        // Запускаем при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM загружен, запускаем мониторинг...');
+            initStatusPage();
+        });
+    </script>
+</body>
+</html>
