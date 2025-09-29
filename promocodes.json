@@ -28,6 +28,167 @@
       "expires": "2024-12-31",
       "description": "Дополнительное описание",
       "image": "https://i.imgur.com/7E20RFF.png"
+    },
+    {
+      "code": "706066714",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/667eea/white?text=RESOURCES"
+    },
+    {
+      "code": "45059861",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/764ba2/white?text=GLYPH"
+    },
+    {
+      "code": "PMBMBMBMBBD",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=WEAPON"
+    },
+    {
+      "code": "7MBMBMBMBMBMBMBM",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/10b981/white?text=COSMETIC"
+    },
+    {
+      "code": "EBMBMBMBM",
+      "reward": "Ресурсы и моды",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/10b981/white?text=RESOURCES"
+    },
+    {
+      "code": "MBMBMBMBO",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=GLYPH"
+    },
+    {
+      "code": "7BMBMBBBMBJ",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/764ba2/white?text=WEAPON"
+    },
+    {
+      "code": "BBBBBMBMB",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=RESOURCES"
+    },
+    {
+      "code": "MBMBBBMBH",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/ef4444/white?text=WEAPON"
+    },
+    {
+      "code": "UBMBMBMBBF",
+      "reward": "Бустер опыта",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=COSMETIC"
+    },
+    {
+      "code": "BMBBBMBX",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/764ba2/white?text=GLYPH"
+    },
+    {
+      "code": "FBMBMBBB",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=BOOSTER"
+    },
+    {
+      "code": "UOBMBMBMBM",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/ef4444/white?text=BOOSTER"
+    },
+    {
+      "code": "OBMBMBBBRS",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=COSMETIC"
+    },
+    {
+      "code": "MBMBMBBBMBMBMM",
+      "reward": "Ресурсы и моды",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=COSMETIC"
+    },
+    {
+      "code": "0BMBBEMBMBD",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=WEAPON"
+    },
+    {
+      "code": "WMBBBMBMBMBMBM",
+      "reward": "Бустер опыта",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/667eea/white?text=RESOURCES"
+    },
+    {
+      "code": "MBM1MBM3",
+      "reward": "Декорация для корабля",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=COSMETIC"
+    },
+    {
+      "code": "FREESWORD",
+      "reward": "Бустер опыта",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=RESOURCES"
+    },
+    {
+      "code": "WARFRAME2024",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/667eea/white?text=WEAPON"
+    },
+    {
+      "code": "GLYPHPRIME",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/ef4444/white?text=WEAPON"
+    },
+    {
+      "code": "PRIMETIME",
+      "reward": "Бустер опыта",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/764ba2/white?text=RESOURCES"
+    },
+    {
+      "code": "MISSLETEAM",
+      "reward": "Декорация для корабля",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/10b981/white?text=COSMETIC"
     }
   ],
   "expired": []
