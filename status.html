@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статус серверов Warframe 🔧</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.1">
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Warframe Tools</strong></li>
+        </ul>
+        <ul>
+            <li><a href="index.html">🎁 Промокоды</a></li>
+            <li><a href="status.html" class="active">🔧 Статус серверов</a></li>
+            <li><a href="https://wtc.idominiqe.com" target="_blank">⏰ Таймеры</a></li>
+            <li><a href="https://github.com/iDominiqe/wtc" target="_blank">⭐ GitHub</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>🔧 Статус серверов Warframe</h1>
+            <p>Мониторинг состояния серверов и онлайн-статистика</p>
+        </section>
+
+        <div class="status-overview">
+            <div class="status-card online">
+                <h3>🟢 Онлайн</h3>
+                <p>Серверы работают стабильно</p>
+                <small>Последняя проверка: <span id="last-check">загрузка...</span></small>
+            </div>
+            
+            <div class="status-card response-time">
+                <h3>⚡ Время отклика</h3>
+                <p id="response-time">-- мс</p>
+                <small>Среднее время ответа</small>
+            </div>
+            
+            <div class="status-card players">
+                <h3>👥 Игроки онлайн</h3>
+                <p id="players-online">--</p>
+                <small>Активные игроки</small>
+            </div>
+        </div>
+
+        <section class="server-list">
+            <h2>📊 Статус серверов</h2>
+            <div id="server-status" class="grid">
+                <!-- Серверы будут загружены через JavaScript -->
+            </div>
+        </section>
+
+        <section class="incident-history">
+            <h2>📈 История инцидентов</h2>
+            <div id="incident-list">
+                <!-- История инцидентов -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <small>Данные обновляются каждые 5 минут • Неофициальный мониторинг</small>
+        <br>
+        <small id="status-last-updated">Последнее обновление: загрузка...</small>
+    </footer>
+
+    <script src="status.js?v=1.0"></script>
+</body>
+</html>
