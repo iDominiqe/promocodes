@@ -84,6 +84,17 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Всегда делаем pull перед изменениями
+          git pull origin main
+          
+          # Добавляем файл и коммитим
           git add promocodes.json
-          git diff --staged --quiet || git commit -m "Auto-update: добавлен промокод из issue #${{ github.event.issue.number }}"
-          git push
+          
+          # Коммитим только если есть изменения
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto-update: добавлен промокод из issue #${{ github.event.issue.number }}"
+            git push
+          else
+            echo "No changes to commit"
+          fi
