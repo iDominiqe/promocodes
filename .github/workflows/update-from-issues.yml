@@ -83,7 +83,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git pull origin main --autostash --rebase
           git add promocodes.json
-          git commit -m "Auto-update: добавлен промокод из issue #${{ github.event.issue.number }}" || exit 0
-          git pull --rebase origin main
+          git commit -m "Auto-update: добавлен промокод из issue #${{ github.event.issue.number }}"
           git push
