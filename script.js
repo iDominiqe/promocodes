@@ -118,3 +118,17 @@ function showNotification(message) {
 
 // Загружаем промокоды при загрузке страницы
 document.addEventListener('DOMContentLoaded', loadPromocodes);
+
+// Автоматическое обновление каждые 5 минут
+function startAutoRefresh() {
+    setInterval(() => {
+        console.log('Авто-обновление промокодов...');
+        loadPromocodes();
+    }, 5 * 60 * 1000); // 5 минут
+}
+
+// Запускаем при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    loadPromocodes();
+    startAutoRefresh();
+});
