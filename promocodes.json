@@ -189,6 +189,55 @@
       "expires": "2024-12-31",
       "description": "Автоматически найденный промокод",
       "image": "https://placehold.co/600x400/10b981/white?text=COSMETIC"
+    },
+    {
+      "code": "WARFRAME",
+      "reward": "Разные награды",
+      "expires": "2024-12-31",
+      "description": "Различные награды от разработчиков",
+      "image": "https://placehold.co/600x400/764ba2/white?text=WARFRAME"
+    },
+    {
+      "code": "THANKSFORYOURSUPPORT",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Эксклюзивный глиф для профиля",
+      "image": "https://placehold.co/600x400/667eea/white?text=THANKSFO"
+    },
+    {
+      "code": "WATCHFULWHISPERS",
+      "reward": "Цветовая палитра",
+      "expires": "2024-12-31",
+      "description": "Награда от разработчиков",
+      "image": "https://placehold.co/600x400/667eea/white?text=WATCHFUL"
+    },
+    {
+      "code": "WITCHFIRE",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Промокод с официального стрима",
+      "image": "https://placehold.co/600x400/667eea/white?text=WITCHFIR"
+    },
+    {
+      "code": "NIGHTSOFNABERUS",
+      "reward": "Бустер опыта",
+      "expires": "2024-12-31",
+      "description": "Промокод с официального стрима",
+      "image": "https://placehold.co/600x400/667eea/white?text=NIGHTSOF"
+    },
+    {
+      "code": "GOTVAPRIME",
+      "reward": "Ресурсы и моды",
+      "expires": "2024-12-31",
+      "description": "Промокод с официального стрима",
+      "image": "https://placehold.co/600x400/667eea/white?text=GOTVAPRI"
+    },
+    {
+      "code": "DOVAHKIIN",
+      "reward": "Ресурсы и моды",
+      "expires": "2024-12-31",
+      "description": "Промокод с официального стрима",
+      "image": "https://placehold.co/600x400/667eea/white?text=DOVAHKII"
     }
   ],
   "expired": []
