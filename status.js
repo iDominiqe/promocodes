@@ -153,3 +153,4 @@ function startAutoRefresh() {
 
 // Запускаем при загрузке страницы
 document.addEventListener('DOMContentLoaded', initStatusPage);
+
