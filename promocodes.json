@@ -21,6 +21,13 @@
       "expires": "2024-12-31",
       "description": "Глиф стримера",
       "image": "https://i.imgur.com/YeRAuyb.png"
+    },
+    {
+      "code": "EVECAPTURA",
+      "reward": "Глиф стримера",
+      "expires": "2024-12-31",
+      "description": "Дополнительное описание",
+      "image": "https://i.imgur.com/7E20RFF.png"
     }
   ],
   "expired": []
