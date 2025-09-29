@@ -1,0 +1,112 @@
+name: Parse Glyphs from WF
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Каждые 6 часов
+  workflow_dispatch:  # Ручной запуск
+
+permissions:
+  contents: write
+
+jobs:
+  parse-glyphs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Parse glyphs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const https = require('https');
+            const fs = require('fs');
+            
+            // Функция для получения HTML страницы
+            function fetchHTML(url) {
+              return new Promise((resolve, reject) => {
+                https.get(url, (response) => {
+                  let data = '';
+                  response.on('data', (chunk) => data += chunk);
+                  response.on('end', () => resolve(data));
+                }).on('error', reject);
+              });
+            }
+            
+            // Парсим страницу с глифами
+            try {
+              console.log('Начинаем парсинг глифов...');
+              const html = await fetchHTML('https://browse.wf/glyphs');
+              
+              // Регулярные выражения для поиска глифов
+              const glyphRegex = /([A-Z0-9_-]{8,16})/g;
+              const codeMatches = html.match(glyphRegex);
+              
+              // Фильтруем только валидные коды (примерно 8-16 символов, заглавные буквы/цифры)
+              const validCodes = codeMatches ? [...new Set(codeMatches)].filter(code => 
+                code.length >= 8 && code.length <= 16 && /^[A-Z0-9_-]+$/.test(code)
+              ) : [];
+              
+              console.log(`Найдено кодов: ${validCodes.length}`);
+              
+              if (validCodes.length > 0) {
+                // Читаем текущие промокоды
+                const currentData = JSON.parse(fs.readFileSync('promocodes.json', 'utf8'));
+                
+                // Добавляем новые глифы
+                const newGlyphs = [];
+                validCodes.forEach(code => {
+                  // Проверяем, нет ли уже такого кода
+                  const exists = currentData.active.some(promo => promo.code === code) ||
+                                currentData.expired.some(promo => promo.code === code);
+                  
+                  if (!exists) {
+                    newGlyphs.push({
+                      code: code,
+                      reward: 'Глиф',
+                      expires: '2024-12-31',
+                      description: 'Автоматически найденный глиф',
+                      image: 'https://placehold.co/600x400/667eea/white?text=GLYPH'
+                    });
+                  }
+                });
+                
+                // Добавляем в активные
+                currentData.active.push(...newGlyphs);
+                currentData.last_updated = new Date().toISOString().split('T')[0];
+                
+                // Сохраняем обратно
+                fs.writeFileSync('promocodes.json', JSON.stringify(currentData, null, 2));
+                
+                console.log(`Добавлено новых глифов: ${newGlyphs.length}`);
+                
+                if (newGlyphs.length > 0) {
+                  // Коммитим изменения
+                  await github.rest.actions.createWorkflowDispatch({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    workflow_id: 'update-from-issues.yml',
+                    ref: 'main'
+                  });
+                }
+              }
+              
+            } catch (error) {
+              console.error('Ошибка парсинга:', error);
+            }
+            
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add promocodes.json
+          git commit -m "Auto-parse: добавлены глифы с browse.wf" || exit 0
+          git push
