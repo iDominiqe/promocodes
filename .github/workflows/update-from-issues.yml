@@ -33,14 +33,13 @@ jobs:
           script: |
             const issue = context.payload.issue;
             const issueBody = issue.body;
-            console.log('Issue body:', issueBody);
             
             // Парсим данные из issue
             const codeMatch = issueBody.match(/Код:\s*([A-Z0-9]+)/i);
             const rewardMatch = issueBody.match(/Награда:\s*(.+)/i);
             const expiresMatch = issueBody.match(/Действует до:\s*(\d{4}-\d{2}-\d{2})/i);
             const descMatch = issueBody.match(/Описание:\s*(.+)/i);
-            const imageMatch = issueBody.match(/Картинка:\s*(.+)/i);  // Добавили парсинг картинки
+            const imageMatch = issueBody.match(/Картинка:\s*(https?:\/\/[^\s]+)/i);
             
             if (codeMatch) {
               const fs = require('fs');
@@ -54,7 +53,7 @@ jobs:
                 reward: rewardMatch ? rewardMatch[1].trim() : 'Награда',
                 expires: expiresMatch ? expiresMatch[1] : '2024-12-31',
                 description: descMatch ? descMatch[1].trim() : '',
-                image: imageMatch ? imageMatch[1].trim() : ""  // Добавляем картинку
+                image: imageMatch ? imageMatch[1].trim() : `https://placehold.co/600x400/667eea/white?text=${encodeURIComponent(rewardMatch ? rewardMatch[1].trim() : 'Промокод')}`
               };
               
               // Добавляем в активные
@@ -63,14 +62,13 @@ jobs:
               
               // Сохраняем обратно
               fs.writeFileSync('promocodes.json', JSON.stringify(currentData, null, 2));
-              console.log('File updated successfully');
               
               // Коммитим изменения
               await github.rest.issues.createComment({
                 issue_number: issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: '✅ Промокод автоматически добавлен на сайт!'
+                body: '✅ Промокод автоматически добавлен на сайт! 🎉'
               });
               
               // Закрываем issue
@@ -79,16 +77,6 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 state: 'closed'
-              });
-              
-              console.log('Issue closed and commented');
-            } else {
-              console.log('No code found in issue');
-              await github.rest.issues.createComment({
-                issue_number: issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: '❌ Не удалось найти код промокода. Убедись, что в теле Issue есть строка "Код: ПРОМОКОД"'
               });
             }
             
