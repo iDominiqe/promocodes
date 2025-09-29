@@ -158,10 +158,12 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .expires::before {
     content: '⏰';
+    font-size: 1em;
 }
 
 #loading {
@@ -219,18 +221,6 @@ nav ul li a:hover {
     transform: translateY(-2px);
 }
 
-/* Адаптивность навигации */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    nav ul li {
-        text-align: center;
-    }
-}
-
 /* Футер */
 footer {
     text-align: center;
@@ -254,6 +244,15 @@ footer {
     .promo-header {
         flex-direction: column;
         align-items: flex-start;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    nav ul li {
+        text-align: center;
     }
 }
 
@@ -344,19 +343,6 @@ footer {
 .redeem-btn:hover {
     background: #e69500;
     transform: translateY(-2px);
-}
-
-/* Исправление отображения часов */
-.expires {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-}
-
-.expires::before {
-    content: '⏰';
-    font-size: 1em;
 }
 
 /* Улучшенные уведомления */
