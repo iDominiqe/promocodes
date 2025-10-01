@@ -1,5 +1,90 @@
 {
-  "last_updated": "2024-01-15",
-  "active": [],
+  "last_updated": "2025-10-01",
+  "active": [
+    {
+      "code": "FREESWORD",
+      "reward": "Vectis и скин",
+      "expires": "2024-12-31",
+      "description": "Снайперская винтовка Vectis и эксклюзивный скин",
+      "image": "https://placehold.co/600x400/667eea/white?text=VECTIS"
+    },
+    {
+      "code": "WARFRAME",
+      "reward": "Разные награды",
+      "expires": "2024-12-31",
+      "description": "Различные награды от разработчиков",
+      "image": "https://placehold.co/600x400/764ba2/white?text=WARFRAME"
+    },
+    {
+      "code": "PRIMETIME",
+      "reward": "Стримерские награды",
+      "expires": "2024-12-31",
+      "description": "Награды с официальных стримов",
+      "image": "https://placehold.co/600x400/10b981/white?text=PRIME+TIME"
+    },
+    {
+      "code": "MISSLETEAM",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/667eea/white?text=MISSLETE"
+    },
+    {
+      "code": "THANKSFORYOURSUPPORT",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/667eea/white?text=THANKSFO"
+    },
+    {
+      "code": "WATCHFULWHISPERS",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Промокод с официального стрима",
+      "image": "https://placehold.co/600x400/667eea/white?text=WATCHFUL"
+    },
+    {
+      "code": "WITCHFIRE",
+      "reward": "Цветовая палитра",
+      "expires": "2024-12-31",
+      "description": "Награда от разработчиков",
+      "image": "https://placehold.co/600x400/667eea/white?text=WITCHFIR"
+    },
+    {
+      "code": "NIGHTSOFNABERUS",
+      "reward": "Цветовая палитра",
+      "expires": "2024-12-31",
+      "description": "Автоматически найденный промокод",
+      "image": "https://placehold.co/600x400/667eea/white?text=NIGHTSOF"
+    },
+    {
+      "code": "GOTVAPRIME",
+      "reward": "Декорация для корабля",
+      "expires": "2024-12-31",
+      "description": "Промокод с официального стрима",
+      "image": "https://placehold.co/600x400/667eea/white?text=GOTVAPRI"
+    },
+    {
+      "code": "DOVAHKIIN",
+      "reward": "Эксклюзивный глиф",
+      "expires": "2024-12-31",
+      "description": "Промокод с официального стрима",
+      "image": "https://placehold.co/600x400/667eea/white?text=DOVAHKII"
+    },
+    {
+      "code": "WARFRAME2024",
+      "reward": "Оружие и скин",
+      "expires": "2024-12-31",
+      "description": "Промокод с официального стрима",
+      "image": "https://placehold.co/600x400/667eea/white?text=WARFRAME"
+    },
+    {
+      "code": "GLYPHPRIME",
+      "reward": "Глиф Prime",
+      "expires": "2024-12-31",
+      "description": "Эксклюзивный глиф для профиля",
+      "image": "https://placehold.co/600x400/f59e0b/white?text=GLYPH"
+    }
+  ],
   "expired": []
 }
